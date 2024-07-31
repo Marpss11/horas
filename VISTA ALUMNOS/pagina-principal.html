@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SITIO WEB DE HORAS SOCIALES</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Barra de navegación */
+        .navbar {
+            background-color: #333; /* Cambio de color de fondo */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .navbar a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff; /* Cambio de color del texto */
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #555555; /* Cambio de color de fondo al pasar el mouse */
+        }
+
+        /* Contenedor de imágenes */
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+            position: relative; /* Ajuste para imágenes */
+            overflow: hidden; /* Oculta el desbordamiento de las imágenes */
+        }
+
+        .image-container img {
+            width: calc(100% / 3); /* Ajuste para ocupar toda la pantalla */
+            height: auto;
+            transition: transform 0.3s;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Texto sobre las imágenes */
+        .image-text {
+            position: absolute;
+            color: #1d1b1b;
+            font-size: 48px; /* Ajuste de tamaño de texto */
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(170, 157, 42, 0.86);
+            top: 50%; /* Ajuste de posición vertical */
+            left: 50%; /* Ajuste de posición horizontal */
+            transform: translate(-50%, -50%);
+            opacity: 1; /* Ajuste para mostrar texto siempre */
+            pointer-events: none; /* Ajuste para que el texto no afecte al hover */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Barra de navegación -->
+<div class="navbar">
+    <a href="pagina-principal.html">Inicio</a>
+    <a href="proyectos.html">Proyectos</a>
+    <a href="Horas-sociales.html">Tus Horas</a>
+    <a href="MaestrosEncargados.html">Encargados</a>
+    <a href="Acerca-de.html">Acerca de</a>
+</div>  
+
+<!-- Contenedor de imágenes -->
+<div class="image-container">
+    <img src="E:\PROYECTO DE SEMINARIO\BANCO DE IMAGENES\bazar cbis.jpg" alt="Imagen 1" width="50px" height="50px">
+    <img src="E:\PROYECTO DE SEMINARIO\BANCO DE IMAGENES\cocina j c.jpg" alt="Imagen 2" width="50px" height="50px">
+    <img src="E:\PROYECTO DE SEMINARIO\BANCO DE IMAGENES\cocina v y a.jpg"alt="Imagen 3" width="50px" height="50px">
+    <img src="E:\PROYECTO DE SEMINARIO\BANCO DE IMAGENES\dia del autismo.jpg" alt="Imagen 4" width="80px" height="80px">
+    <img src="E:\PROYECTO DE SEMINARIO\BANCO DE IMAGENES\horas ambientales cbis.jpg" alt="Imagen 5" width="80px" height="80px">
+    <img src="E:\PROYECTO DE SEMINARIO\BANCO DE IMAGENES\seguridad vial cbis.jpg"alt="Imagen 6" width="80px" height="80px">
+    <img src="E:\PROYECTO DE SEMINARIO\BANCO DE IMAGENES\bazaar 2 san juan.jpg"alt="Im0agen 7" width="80px" height="80px">
+    <img src="E:\PROYECTO DE SEMINARIO\BANCO DE IMAGENES\Vial chicos.jpg"alt="Im0agen 8" width="80px" height="80px">
+    <img src="E:\PROYECTO DE SEMINARIO\BANCO DE IMAGENES\bazaar 2 san juan.jpg"alt="Im0agen 8" width="80px" height="80px">
+    <div class="image-text" style="top: 50%; left: 50%;">Realiza tus horas</div>
+</div>
+
+</body>
+</html>
+

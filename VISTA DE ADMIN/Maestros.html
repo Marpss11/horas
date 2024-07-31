@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <form action="insertar_maestro.php" method="POST">
+    <style>
+        /* Barra de navegación */
+        .navbar {
+            background-color: rgba(51, 51, 51, 0.5); /* Cambio de color de fondo con transparencia */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            text-align: center;
+            position: fixed; /* Fijar la barra de navegación en la parte superior */
+            width: 100%; /* Ancho completo */
+            top: 0; /* Posicionamiento en la parte superior */
+            z-index: 999; /* Asegurar que la barra de navegación esté por encima de otros elementos */
+        }
+
+        .navbar a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff; /* Cambio de color del texto */
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #555; /* Cambio de color de fondo al pasar el mouse */
+        }
+
+        body {
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: #0d0e0d; /* Cambio de color a negro */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 120px 0 50px; /* Ajuste del espacio en la parte superior */
+            margin: 0; /* Añadido para eliminar el margen predeterminado del body */
+        }
+
+        /* Formulario y lista de personas */
+        .container {
+            margin: 50px auto;
+            width: 300px;
+        }
+
+        input[type="text"], input[type="email"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .person-list {
+            margin-top: 20px;
+        }
+
+        .person {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .person button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .person button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="pagina-principal.html">Inicio</a>
+        <a href="proyectos.html">Proyectos</a>
+        <a href="controles.html">Controles</a>
+        <a href="Acerca-de.html">Acerca de</a>
+    </div>
+    <div class="container">
+        <h1>Agregar Persona</h1>
+        <form id="personForm">
+            <input type="text" id="name" placeholder="Nombre" required>
+            <input type="text" id="surname" placeholder="Apellido" required>
+            <input type="email" id="email" placeholder="Correo electrónico" required>
+            <input type="text" id="role" placeholder="Proyecto encargado" required>
+            <input type="submit" value="Agregar">
+        </form>
+        <div class="person-list" id="personList">
+            <!-- Aquí se agregarán las personas -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var personList = document.getElementById('personList');
+            var persons = JSON.parse(localStorage.getItem('persons')) || [];
+
+            persons.forEach(function(person, index) {
+                addPersonToList(person, index);
+            });
+
+            document.getElementById('personForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                var name = document.getElementById('name').value;
+                var surname = document.getElementById('surname').value;
+                var email = document.getElementById('email').value;
+                var role = document.getElementById('role').value;
+
+                var person = { name: name, surname: surname, email: email, role: role };
+                persons.push(person);
+                localStorage.setItem('persons', JSON.stringify(persons));
+
+                addPersonToList(person, persons.length - 1);
+
+                // Limpiar los campos del formulario
+                document.getElementById('name').value = '';
+                document.getElementById('surname').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('role').value = '';
+            });
+
+            function addPersonToList(person, index) {
+                var personDiv = document.createElement('div');
+                personDiv.className = 'person';
+                personDiv.textContent = 'Nombre: ' + person.name + ' ' + person.surname + ' - Correo: ' + person.email + ' - Proyecto Encargado: ' + person.role;
+
+                var deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Eliminar';
+                deleteButton.addEventListener('click', function() {
+                    persons.splice(index, 1);
+                    localStorage.setItem('persons', JSON.stringify(persons));
+                    personList.removeChild(personDiv);
+                });
+
+                personDiv.appendChild(deleteButton);
+                personList.appendChild(personDiv);
+            }
+        });
+    </script>
+</body>
+</html>

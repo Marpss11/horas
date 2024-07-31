@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Usuario</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 16px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-admin {
+            background-color: #4682B4;
+        }
+        .btn-admin:hover {
+            background-color: #5F9EA0;
+        }
+        .btn-estudiante {
+            background-color: #32CD32;
+        }
+        .btn-estudiante:hover {
+            background-color: #3CB371;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-pic">
+            <img src="E:\PROYECTO DE SEMINARIO\BANCO DE IMAGENES\CBIS LOGO.jpg" alt="Imagen de perfil">
+        </div>
+        <h1>Seleccione su rol</h1>
+        <button class="btn btn-admin" onclick="window.location.href='E:/PROYECTO DE SEMINARIO/VISTA DE ADMIN/inicio-de-sesion.html'">Administrador</button>
+        <button class="btn btn-estudiante" onclick="window.location.href='E:/PROYECTO DE SEMINARIO/VISTA ALUMNOS/inicio-de-sesion.html'">Estudiante</button>
+    </div>
+</body>
+</html>

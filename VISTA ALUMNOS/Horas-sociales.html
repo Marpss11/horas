@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Pastel con Categorías y Contador</title>
+    <!-- Cargando Chart.js desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilos de la barra de navegación */
+        .navbar {
+            background-color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .navbar a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos del contenedor principal */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 100px 20px 20px; /* Ajuste para compensar la barra de navegación fija */
+        }
+
+        /* Estilos del contenedor del gráfico */
+        .chart-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+        }
+
+        /* Estilos del contenedor del formulario */
+        .form-container {
+            width: 100%;
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+
+        p span {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        /* Estilos para el título CBIS */
+        .title {
+            font-size: 3em; /* Tamaño del texto grande */
+            font-family: 'Times New Roman', Times, serif; /* Tipo de letra */
+            margin-bottom: 20px; /* Espaciado inferior */
+            color: #007bff; /* Color del texto */
+        }
+
+        /* Estilos para el texto de información */
+        .info-text {
+            margin-bottom: 20px; /* Espaciado inferior */
+        }
+    </style>
+    <script>
+        function imprimirResultados() {
+            // Convertir la gráfica en una imagen base64
+            var canvas = document.getElementById("totalPieChart");
+            var imgData = canvas.toDataURL("image/png");
+
+            var contenido = document.getElementById("contenidoImprimible").innerHTML;
+            var ventanaImpresion = window.open('', '', 'height=600,width=800');
+            ventanaImpresion.document.write('<html><head><title>Resultados</title>');
+            ventanaImpresion.document.write('</head><body>');
+            // Incluir título y texto de información
+            ventanaImpresion.document.write('<div class="title">CBIS</div>');
+            ventanaImpresion.document.write('<div class="info-text">La suma de las horas sociales refleja el compromiso y dedicación de los alumnos en diversas actividades. Estas horas no solo benefician a la comunidad, sino que también enriquecen el desarrollo personal y profesional de cada estudiante, preparándolos para futuros desafíos.</div>');
+            ventanaImpresion.document.write(contenido);
+            ventanaImpresion.document.write('<img src="' + imgData + '"/>');
+            ventanaImpresion.document.write('</body></html>');
+            ventanaImpresion.document.close();
+            ventanaImpresion.print();
+        }
+    </script>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <div class="navbar">
+        <a href="pagina-principal.html">Inicio</a>
+        <a href="proyectos.html">Proyectos</a>
+        <a href="Horas-sociales.html">Tus Horas</a>
+        <a href="MaestrosEncargados.html">Encargados</a>
+        <a href="Acerca-de.html">Acerca de</a>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Título -->
+        <div class="title">
+            CBIS
+        </div>
+        <!-- Texto de información -->
+        <div class="info-text">
+            La suma de las horas sociales refleja el compromiso y dedicación de los alumnos en diversas actividades. Estas horas no solo benefician a la comunidad, sino que también enriquecen el desarrollo personal y profesional de cada estudiante, preparándolos para futuros desafíos.
+        </div>
+        <!-- Contenedor del gráfico y resultados imprimibles -->
+        <div id="contenidoImprimible">
+            <div class="chart-container">
+                <canvas id="totalPieChart"></canvas>
+            </div>
+            <div class="form-container">
+                <p>Seguridad Vial Total: <span id="totalSeguridadVial">0</span></p>
+                <p>Bazar Total: <span id="totalBazar">0</span></p>
+                <p>Cocina Total: <span id="totalCocina">0</span></p>
+                <p>Otro Total: <span id="totalOtro">0</span></p>
+                <p>Suma Total: <span id="sumaTotal">0</span></p>
+            </div>
+        </div>
+
+        <!-- Contenedor del formulario -->
+        <div class="form-container">
+            <label for="seguridadVial">Seguridad Vial:</label>
+            <input type="number" id="seguridadVial" placeholder="Ingrese cantidad">
+            <label for="bazar">Bazar:</label>
+            <input type="number" id="bazar" placeholder="Ingrese cantidad">
+            <label for="cocina">Cocina:</label>
+            <input type="number" id="cocina" placeholder="Ingrese cantidad">
+            <label for="otro">Otro:</label>
+            <input type="number" id="otro" placeholder="Ingrese cantidad">
+            <button onclick="sumarValores()">Sumar</button>
+        </div>
+
+        <!-- Botón de impresión -->
+        <button onclick="imprimirResultados()">Imprimir Resultados</button>
+    </div>
+
+    <script>
+        // Inicialización de variables y recuperación de datos del localStorage
+        let totalSeguridadVial = parseInt(localStorage.getItem('totalSeguridadVial')) || 0;
+        let totalBazar = parseInt(localStorage.getItem('totalBazar')) || 0;
+        let totalCocina = parseInt(localStorage.getItem('totalCocina')) || 0;
+        let totalOtro = parseInt(localStorage.getItem('totalOtro')) || 0;
+        let sumaTotal = totalSeguridadVial + totalBazar + totalCocina + totalOtro;
+
+        // Actualización de los valores mostrados en la página
+        document.getElementById('totalSeguridadVial').textContent = totalSeguridadVial;
+        document.getElementById('totalBazar').textContent = totalBazar;
+        document.getElementById('totalCocina').textContent = totalCocina;
+        document.getElementById('totalOtro').textContent = totalOtro;
+        document.getElementById('sumaTotal').textContent = sumaTotal;
+
+        // Configuración del gráfico de pastel
+        let dataPie = {
+            labels: ["Seguridad Vial", "Bazar", "Cocina", "Otro"],
+            datasets: [{
+                label: "Totales",
+                data: [totalSeguridadVial, totalBazar, totalCocina, totalOtro],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(153, 102, 255, 0.5)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        let opciones = {
+            responsive: true,
+            maintainAspectRatio: false
+        };
+
+        // Creación del gráfico
+        let ctxPie = document.getElementById('totalPieChart').getContext('2d');
+        let totalPieChart = new Chart(ctxPie, {
+            type: 'pie',
+            data: dataPie,
+            options: opciones
+        });
+
+        // Función para sumar valores ingresados y actualizar el gráfico y totales
+        function sumarValores() {
+            const seguridadVialValue = parseInt(document.getElementById('seguridadVial').value) || 0;
+            const bazarValue = parseInt(document.getElementById('bazar').value) || 0;
+            const cocinaValue = parseInt(document.getElementById('cocina').value) || 0;
+            const otroValue = parseInt(document.getElementById('otro').value) || 0;
+
+            totalSeguridadVial += seguridadVialValue;
+            totalBazar += bazarValue;
+            totalCocina += cocinaValue;
+            totalOtro += otroValue;
+            sumaTotal += seguridadVialValue + bazarValue + cocinaValue + otroValue;
+
+            localStorage.setItem('totalSeguridadVial', totalSeguridadVial);
+            localStorage.setItem('totalBazar', totalBazar);
+            localStorage.setItem('totalCocina', totalCocina);
+            localStorage.setItem('totalOtro', totalOtro);
+
+            actualizarTotales();
+        }
+
+        // Función para actualizar los totales en la página y en el gráfico
+        function actualizarTotales() {
+            document.getElementById('totalSeguridadVial').textContent = totalSeguridadVial;
+            document.getElementById('totalBazar').textContent = totalBazar;
+            document.getElementById('totalCocina').textContent = totalCocina;
+            document.getElementById('totalOtro').textContent = totalOtro;
+            document.getElementById('sumaTotal').textContent = sumaTotal;
+
+            totalPieChart.data.datasets[0].data = [totalSeguridadVial, totalBazar, totalCocina, totalOtro];
+            totalPieChart.update();
+        }
+    </script>
+</body>
+</html>
